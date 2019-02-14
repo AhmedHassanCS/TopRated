@@ -13,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@color/colorWhite"
             app:srcCompat="@drawable/ic_launcher_background"
             android:scaleType="centerInside"/>
 
