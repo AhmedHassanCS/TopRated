@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Top Rated</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="avg_vote">Average Vote: %1$s</string>
+    <string name="total_votes">Total Votes: %1$s</string>
+    <string name="lang">Language: %1$s</string>
+    <string name="release_date">Release Date: %1$s</string>
+    <string name="genres">Genres: %1$s</string>
+    <string name="no_genres">No Genres</string>
+</resources>
