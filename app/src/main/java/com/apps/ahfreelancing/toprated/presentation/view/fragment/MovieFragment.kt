@@ -91,7 +91,7 @@ class MovieFragment : Fragment() {
             }
 
             movieProgressBar.visibility = View.GONE
-            bindMovieModel(newMovie!!)
+            bindMovieModel(newMovie)
         })
     }
 

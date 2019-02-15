@@ -14,7 +14,7 @@ class TopRatedUseCase @Inject constructor(private val moviesRepository: MoviesRe
 
     override fun execute(observer: DisposableObserver<ArrayList<MovieModel>>) {
         disposable = moviesRepository.getTopRatedMovies()
-            .subscribeWith(observer as DisposableObserver<ArrayList<MovieModel>>)
+            .subscribeWith(observer)
     }
 
 }
