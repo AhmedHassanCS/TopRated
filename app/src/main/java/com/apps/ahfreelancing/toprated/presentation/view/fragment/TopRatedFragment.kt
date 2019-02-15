@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +16,12 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.apps.ahfreelancing.toprated.R
-import com.apps.ahfreelancing.toprated.presentation.view.activity.MainActivity
 import com.apps.ahfreelancing.toprated.presentation.view.activity.MainActivityCallback
 import com.apps.ahfreelancing.toprated.presentation.view.adapter.MoviesAdapter
 import com.apps.ahfreelancing.toprated.presentation.viewModel.TopRatedViewModel
 import javax.inject.Inject
+
+
 
 class TopRatedFragment : Fragment() {
 
@@ -41,6 +43,7 @@ class TopRatedFragment : Fragment() {
     //mainActivityCallback variable will be initialized by the activity
     lateinit var mainActivityCallback: MainActivityCallback
 
+    var pageNum = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,6 +90,19 @@ class TopRatedFragment : Fragment() {
 
             //Top Rated Movies will be updated only once with the creation of the adapter
             topRatedViewModel.updateTopRatedMovies()
+
+            moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if((moviesRecyclerView.layoutManager as LinearLayoutManager)
+                            .findLastCompletelyVisibleItemPosition() == adapter.movies.size - 1){
+                        pageNum++
+                        topRatedViewModel.getPage(pageNum)
+                    }
+                }
+            })
+
+
         }
     }
 
@@ -104,10 +120,13 @@ class TopRatedFragment : Fragment() {
             if(newMovies.isNotEmpty())
                 moviesProgressBar.visibility = View.GONE
 
-            adapter.movies.clear()
+            val lastPosition = adapter.movies.size - 1
             adapter.movies.addAll(newMovies)
 
-            adapter.notifyDataSetChanged()
+
+            if(pageNum == 1)
+                adapter.notifyDataSetChanged()
+            else adapter.notifyItemRangeInserted(lastPosition + 1, newMovies.size)
         })
     }
 

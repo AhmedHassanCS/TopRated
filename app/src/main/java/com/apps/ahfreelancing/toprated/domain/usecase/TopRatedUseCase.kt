@@ -12,9 +12,15 @@ import javax.inject.Inject
 class TopRatedUseCase @Inject constructor(private val moviesRepository: MoviesRepository)
     : BaseUseCase<ArrayList<MovieModel>>(moviesRepository) {
 
+    private var pageNum : Int = 1
+
     override fun execute(observer: DisposableObserver<ArrayList<MovieModel>>) {
-        disposable = moviesRepository.getTopRatedMovies()
+        disposable = moviesRepository.getTopRatedMovies(pageNum)
             .subscribeWith(observer)
+    }
+
+    fun setPageNum(pageNum: Int){
+        this.pageNum = pageNum
     }
 
 }

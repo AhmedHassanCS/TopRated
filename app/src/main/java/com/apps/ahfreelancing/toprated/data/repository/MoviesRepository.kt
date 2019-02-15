@@ -10,10 +10,10 @@ import io.reactivex.Observable
  */
 class MoviesRepository (private val apiAccess: ApiAccess) {
 
-    fun getTopRatedMovies() : Observable<ArrayList<MovieModel>>{
+    fun getTopRatedMovies(pageNum :Int) : Observable<ArrayList<MovieModel>>{
         //mapper to allow the observable to convert entities to models
         val mapper = MovieConverter()
-        return apiAccess.getTopRatedMovies().map(mapper::convertEntitiestoModels)
+        return apiAccess.getTopRatedMovies(pageNum).map(mapper::convertEntitiestoModels)
     }
 
     fun getMovieDetails(id: Int) : Observable<MovieModel>{

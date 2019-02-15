@@ -19,11 +19,11 @@ class ApiAccess @Inject constructor(retrofit: Retrofit) {
     //Didn't move api key to local properties to make the evaluator be able to use it easily
     private val apiKey : String = "9f91f0eefb25782613be1ddf5e66dfde"
 
-    fun getTopRatedMovies() : Observable<ArrayList<MovieEntity>>{
+    fun getTopRatedMovies(pageNum : Int) : Observable<ArrayList<MovieEntity>>{
 
         return Observable.create { emitter ->
 
-            val call = api.getTopRatedMovies(apiKey)
+            val call = api.getTopRatedMovies(apiKey, pageNum)
             val moviesList = ArrayList<MovieEntity>()
 
             call.enqueue(object : Callback<ApiResponseEntity> {

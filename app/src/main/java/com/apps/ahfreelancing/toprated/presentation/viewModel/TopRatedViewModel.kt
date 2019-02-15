@@ -28,6 +28,13 @@ class TopRatedViewModel @Inject constructor(private val topRatedUseCase: TopRate
     }
 
     fun updateTopRatedMovies() {
+        moviesList.clear()
+        topRatedUseCase.setPageNum(1)
+        topRatedUseCase.execute(MoviesListObserver())
+    }
+
+    fun getPage(pageNum: Int) {
+        topRatedUseCase.setPageNum(pageNum)
         topRatedUseCase.execute(MoviesListObserver())
     }
 
