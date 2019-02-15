@@ -59,9 +59,6 @@ class MoviesAdapter(val movies : ArrayList<MovieModel>, private val context: Con
         titleTextView.text = movie.name
         if(movie.genres!= null && movie.genres!!.size !=0)
             genreTextView.text = movie.genres!!.joinToString(separator = ", ")
-        else
-            genreTextView.text = activity.getString(R.string.no_genres)
-
 
         posterImageView.setOnClickListener {
             activity.title = movie.name
